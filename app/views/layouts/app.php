@@ -40,13 +40,14 @@ $isAdmin = Auth::isAdmin();
         <div class="d-flex align-items-center gap-2">
           <div class="brand-badge"><i class="bi bi-stars"></i></div>
           <div>
-            <div class="fw-bold">AI Assistant</div>
-            <div class="small text-secondary">Dokumentasi Skripsi</div>
+            <div class="fw-bold">Skripsi Assistant</div>
+            <div class="small text-secondary">Support AI</div>
           </div>
         </div>
       </div>
 
       <nav class="p-2">
+        <?php $r = (string)($_GET['r'] ?? ''); ?>
         <a class="nav-link <?= (($_GET['r'] ?? '') === 'dashboard/index' ? 'active' : '') ?>" href="<?= e(url('dashboard/index')) ?>">
           <i class="bi bi-speedometer2 me-2"></i>Dashboard
         </a>
@@ -65,6 +66,17 @@ $isAdmin = Auth::isAdmin();
         <div class="nav-section mt-3 mb-1 small text-secondary px-2">Dokumen</div>
         <a class="nav-link" href="<?= e(url('documents/index')) ?>"><i class="bi bi-folder2-open me-2"></i>Riwayat Dokumen</a>
         <a class="nav-link" href="<?= e(url('history/index')) ?>"><i class="bi bi-clock-history me-2"></i>History Prompt AI</a>
+
+        <div class="nav-section mt-3 mb-1 small text-secondary px-2">Jurnal</div>
+        <a class="nav-link <?= str_starts_with($r, 'journals/index') ? 'active' : '' ?>" href="<?= e(url('journals/index')) ?>">
+          <i class="bi bi-search me-2"></i>Pencarian Jurnal
+        </a>
+        <a class="nav-link <?= str_starts_with($r, 'journals/favorites') ? 'active' : '' ?>" href="<?= e(url('journals/favorites')) ?>">
+          <i class="bi bi-bookmark-heart me-2"></i>Favorit Jurnal
+        </a>
+        <a class="nav-link <?= str_starts_with($r, 'journals/history') ? 'active' : '' ?>" href="<?= e(url('journals/history')) ?>">
+          <i class="bi bi-clock-history me-2"></i>Riwayat Pencarian
+        </a>
 
         <?php if ($isAdmin): ?>
           <div class="nav-section mt-3 mb-1 small text-secondary px-2">Admin</div>
