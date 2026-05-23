@@ -40,6 +40,7 @@ final class AdminController extends Controller
         $this->view('admin/settings', [
             'settings' => $settings,
             'hasApiKey' => !empty($settings['openai_token']),
+            'hasSerpApiKey' => !empty($settings['serpapi_token']),
         ]);
     }
 
@@ -53,6 +54,7 @@ final class AdminController extends Controller
         }
 
         $openaiToken = trim((string)($_POST['openai_token'] ?? ''));
+        $serpapiToken = trim((string)($_POST['serpapi_token'] ?? ''));
         $promptSystem = trim((string)($_POST['prompt_system'] ?? ''));
 
         $openaiModel = trim((string)($_POST['openai_model'] ?? OPENAI_MODEL));
@@ -87,6 +89,9 @@ final class AdminController extends Controller
         $model = new Setting();
         if ($openaiToken !== '') {
             $model->set('openai_token', $openaiToken);
+        }
+        if ($serpapiToken !== '') {
+            $model->set('serpapi_token', $serpapiToken);
         }
         if ($promptSystem !== '') {
             $model->set('prompt_system', $promptSystem);
