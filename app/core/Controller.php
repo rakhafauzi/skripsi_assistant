@@ -12,6 +12,10 @@ abstract class Controller
 
     protected function wantsJson(): bool
     {
+        $route = strtolower((string)($_GET['r'] ?? ''));
+        if ($route !== '' && (str_starts_with($route, 'api/') || str_contains($route, '/api') || str_contains($route, 'api-'))) {
+            return true;
+        }
         $xhr = strtolower((string)($_SERVER['HTTP_X_REQUESTED_WITH'] ?? ''));
         if ($xhr === 'xmlhttprequest') {
             return true;

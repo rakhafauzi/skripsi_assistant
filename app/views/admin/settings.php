@@ -1,6 +1,7 @@
 <?php
 $settings = $settings ?? [];
 $hasApiKey = (bool)($hasApiKey ?? false);
+$hasSerpApiKey = (bool)($hasSerpApiKey ?? false);
 ?>
 
 <div class="d-flex justify-content-between align-items-center mb-3">
@@ -57,12 +58,35 @@ $hasApiKey = (bool)($hasApiKey ?? false);
 
   <div class="col-12 col-lg-6">
     <div class="card border-0 shadow-sm">
+      <div class="card-header bg-transparent fw-semibold">Google Scholar (SerpAPI)</div>
+      <div class="card-body">
+        <div class="alert <?= $hasSerpApiKey ? 'alert-success' : 'alert-warning' ?> mb-3">
+          <div class="fw-semibold">API Key</div>
+          <div class="small">
+            Status: <?= $hasSerpApiKey ? 'Tersimpan di settings (serpapi_token)' : 'Belum ada. Isi settings serpapi_token.' ?>
+          </div>
+        </div>
+
+        <form method="post" action="<?= e(url('admin/save-settings')) ?>">
+          <?= csrf_field() ?>
+          <div class="mb-3">
+            <label class="form-label">SerpAPI Key</label>
+            <input class="form-control" name="serpapi_token" placeholder="<?= $hasSerpApiKey ? 'Sudah tersimpan (kosongkan jika tidak ingin mengubah)' : 'Masukkan token SerpAPI' ?>">
+            <div class="form-text">Token disimpan di database (settings.serpapi_token) untuk integrasi Google Scholar.</div>
+          </div>
+          <button class="btn btn-primary" type="submit"><i class="bi bi-save me-1"></i>Simpan</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="card border-0 shadow-sm mt-3">
       <div class="card-header bg-transparent fw-semibold">Catatan Setup (Admin)</div>
       <div class="card-body">
         <ol class="small text-secondary mb-0">
           <li>Impor SQL dari folder database/schema.sql.</li>
           <li>Pastikan config database sesuai (app/config/database.php atau env DB_*).</li>
           <li>Isi OpenRouter API key di Settings (openai_token).</li>
+          <li>Isi SerpAPI key di Settings (serpapi_token) jika ingin hasil Google Scholar.</li>
           <li>Set role admin di table users (kolom role = 'admin').</li>
         </ol>
       </div>

@@ -10,6 +10,7 @@ final class Response
         http_response_code($status);
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode($data, JSON_UNESCAPED_UNICODE);
+        exit;
     }
 
     public static function redirect(string $url): void
@@ -24,4 +25,3 @@ final class Response
         echo '<h1>404</h1><p>' . Security::e($message) . '</p>';
     }
 }
-
